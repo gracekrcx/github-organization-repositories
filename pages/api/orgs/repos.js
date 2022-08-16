@@ -4,9 +4,9 @@ export default async function repos(req, res) {
 
   const org = "facebook";
   const type = "public";
-  const sort = "updated";
-  const direction = "desc";
-  const query = `type=${type}&sort=${sort}&direction=${direction}&page=${page}&per_page=25`;
+  const sort = "created";
+  const direction = "asc";
+  const query = `type=${type}&sort=${sort}&direction=${direction}&page=${page}&per_page=5`;
 
   const result = await fetch(
     `https://api.github.com/orgs/${org}/repos?${query}`,
