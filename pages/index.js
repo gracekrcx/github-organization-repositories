@@ -40,8 +40,9 @@ export default function Home() {
   // (4) fetch api
   const fetchRepositories = useCallback(
     async (data) => {
-      console.log("---Client--> 觸發");
+      console.log("---Client-Fetch API ---> 觸發");
       const result = await getRepositories(data);
+      console.log("--> res", result);
 
       // 確認資料型態
       if (Array.isArray(result)) {

@@ -1,3 +1,5 @@
+import { normalizer } from "../../utils/normalizer";
+
 export default async function repos(req, res) {
   const { keyword, type, sort, direction, page, per_page } = req.query;
   console.log({ keyword, type, sort, direction, page, per_page });
@@ -18,15 +20,10 @@ export default async function repos(req, res) {
       }
       return res.json();
     })
-    .then((res) => {
-      console.log("-- api server 成功");
-      return res;
-    })
+    .then(normalizer)
     .catch((e) => {
       console.error("api server 錯誤:", e.status);
       console.error("api server 錯誤:", e.statusText);
-      // client error: 403
-      // client error: rate limit exceeded
       return e;
     });
 

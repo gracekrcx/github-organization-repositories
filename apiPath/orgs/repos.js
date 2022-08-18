@@ -1,5 +1,3 @@
-// 錯誤處理
-
 export default function orgsRepos({
   keyword = "",
   page = 1,
@@ -22,11 +20,11 @@ export default function orgsRepos({
     .catch((e) => {
       console.error("client error:", e.status);
       console.error("client error:", e.statusText);
-      // api server 錯誤: 404
-      // api server 錯誤: Not Found
+      // 錯誤: 404
+      // 錯誤: Not Found
 
-      // client error: 403
-      // client error: rate limit exceeded
+      // 403
+      // rate limit exceeded
 
       return { status: e.status, message: e.statusText };
     });
