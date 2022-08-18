@@ -1,32 +1,66 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Head from "next/head";
-
 import Repositories from "../components/Repositories";
+import SelectorContainer from "../components/SelectorContainer";
 import getRepositories from "../apiPath/orgs/repos";
 import { useStore } from "../context/store";
 import Container from "../commonComponents/Container";
-import Button from "../commonComponents/Button";
-import { Header } from "../css/style";
+import { Header, ErrorMessage } from "../css/style";
 import { InputWrapper } from "../css/customStyle";
 import debounce from "lodash/debounce";
 
 const debounceTime = 1500;
 
 export default function Home() {
-  // call api
-  const [search, setSearch] = useState({ keyword: "", page: 1 });
+  const [search, setSearch] = useState({
+    keyword: "",
+    page: 1,
+    type: "all",
+    sort: "created",
+    direction: "desc",
+  });
   const { setRepositories } = useStore();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const handlePlusOne = useCallback(() => {
+  const infiniteFetch = useCallback(() => {
+    setLoading(true);
     setSearch((val) => ({ ...val, page: val.page + 1 }));
   }, []);
 
+  // filter 改變
+  const filterUpdateSearch = useCallback(
+    (val) => {
+      setRepositories([]);
+      setSearch((pre) => ({ ...pre, ...val, page: 1 }));
+    },
+    [setRepositories]
+  );
+
   // (4) fetch api
   const fetchRepositories = useCallback(
-    async (search) => {
-      console.log("-----> 觸發", search);
-      const result = await getRepositories(search);
-      setRepositories(result);
+    async (data) => {
+      console.log("---Client--> 觸發");
+      const result = await getRepositories(data);
+
+      // 確認資料型態
+      if (Array.isArray(result)) {
+        if (result.length > 0) {
+          setRepositories((prev) => [...prev, ...result]);
+        } else {
+          // 沒有更多資料
+          setErrorMessage("Sorry 無更多資料了");
+        }
+      } else {
+        // 顯示錯誤訊息
+        setRepositories([]);
+        if (result?.status === 404) {
+          setErrorMessage("無相關資料");
+        } else {
+          setErrorMessage("系統有些問題 請稍候再試");
+        }
+      }
+      setLoading(false);
     },
     [setRepositories]
   );
@@ -43,6 +77,8 @@ export default function Home() {
   // (2) detect change
   useEffect(() => {
     if (search.keyword) {
+      setLoading(true);
+      setErrorMessage(null);
       debouncedSearch(search);
     }
   }, [debouncedSearch, search]);
@@ -50,7 +86,8 @@ export default function Home() {
   // (1) input change
   const handleSearch = (e) => {
     const value = e.target.value;
-    setSearch({ keyword: value, page: 1 });
+    setSearch((val) => ({ ...val, keyword: value, page: 1 }));
+    setRepositories([]);
   };
 
   return (
@@ -62,14 +99,19 @@ export default function Home() {
       </Head>
       <Container>
         <Header>
-          <InputWrapper type="text" name="search" onChange={handleSearch} />
-          <div className="buttoWrapper">
-            <Button />
-            <Button />
-            <Button />
-          </div>
+          <InputWrapper
+            type="text"
+            name="search"
+            onChange={handleSearch}
+            placeholder="search"
+          />
+          <SelectorContainer
+            search={search}
+            filterUpdateSearch={filterUpdateSearch}
+          />
         </Header>
-        <Repositories handlePlusOne={handlePlusOne} />
+        <Repositories infiniteFetch={infiniteFetch} loading={loading} />
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Container>
     </div>
   );

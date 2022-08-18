@@ -1,7 +1,15 @@
 // 錯誤處理
 
-export default function orgsRepos({ keyword = "iamkeyword", page = 1 }) {
-  return fetch(`api/orgs/repos?keyword=${keyword}&page=${page}`)
+export default function orgsRepos({
+  keyword = "",
+  page = 1,
+  type = "all",
+  sort = "created",
+  direction = "desc",
+}) {
+  return fetch(
+    `api/orgs/repos?keyword=${keyword}&type=${type}&sort=${sort}&direction=${direction}&page=${page}&per_page=10`
+  )
     .then((res) => {
       if (!res.ok) {
         throw res;
@@ -14,6 +22,12 @@ export default function orgsRepos({ keyword = "iamkeyword", page = 1 }) {
     .catch((e) => {
       console.error("client error:", e.status);
       console.error("client error:", e.statusText);
-      return null;
+      // api server 錯誤: 404
+      // api server 錯誤: Not Found
+
+      // client error: 403
+      // client error: rate limit exceeded
+
+      return { status: e.status, message: e.statusText };
     });
 }

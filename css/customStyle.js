@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+export const MOBILE = "@media screen and (max-width: 543px)";
 export const InputWrapper = styled.input`
   width: 300px;
   height: 32px;
@@ -11,4 +12,5 @@ export const InputWrapper = styled.input`
   box-sizing: border-box;
   font-size: 14px;
   color: #24292f;
+  margin-bottom: 15px;
 `;

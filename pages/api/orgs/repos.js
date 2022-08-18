@@ -1,15 +1,11 @@
 export default async function repos(req, res) {
-  const { keyword, page } = req.query;
-  console.log({ keyword, page });
+  const { keyword, type, sort, direction, page, per_page } = req.query;
+  console.log({ keyword, type, sort, direction, page, per_page });
 
-  const org = "facebook";
-  const type = "public";
-  const sort = "created";
-  const direction = "asc";
-  const query = `type=${type}&sort=${sort}&direction=${direction}&page=${page}&per_page=5`;
+  const query = `type=${type}&sort=${sort}&direction=${direction}&page=${page}&per_page=${per_page}`;
 
   const result = await fetch(
-    `https://api.github.com/orgs/${org}/repos?${query}`,
+    `https://api.github.com/orgs/${keyword}/repos?${query}`,
     {
       headers: {
         Accept: "application/vnd.github+json",
@@ -27,9 +23,13 @@ export default async function repos(req, res) {
       return res;
     })
     .catch((e) => {
-      console.log("-- api server 錯誤");
+      console.error("api server 錯誤:", e.status);
+      console.error("api server 錯誤:", e.statusText);
+      // client error: 403
+      // client error: rate limit exceeded
       return e;
     });
 
-  res.json(result);
+  console.log("--->SER---status", result.status);
+  res.status(result.status || 200).json(result);
 }

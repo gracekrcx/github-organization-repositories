@@ -28,11 +28,12 @@ export const RepoItemContainer = styled.div`
   .visibility {
     border-radius: 24px;
     padding: 0 7px;
-    border: 1px solid rgb(208 215 222);
+    border: 1px solid #d0d7de;
     font-size: 12px;
     line-height: 19px;
     font-weight: 400;
-    width: auto;
+    width: 34px;
+    height: 19px;
   }
 
   .descr {
@@ -50,6 +51,7 @@ export const RepoItemContainer = styled.div`
     color: #57606a;
     margin-top: 4px;
     display: flex;
+    flex-wrap: wrap;
 
     .msgWrap {
       display: flex;
