@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styled from "styled-components";
-import spinner from "@/svg/spinner.svg";
+import spinner from "images/svg/spinner.svg";
 
 const SpinnerWrapper = styled.div`
   display: flex;

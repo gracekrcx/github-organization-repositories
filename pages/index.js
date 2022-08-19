@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Head from "next/head";
-import Repositories from "@/components/Repositories";
-import Container from "@/commonComponents/Container";
-import SelectorContainer from "@/components/SelectorContainer";
-import getRepositories from "@/apiPath/orgs/repos";
-import { useStore } from "@/context/store";
-import { Header, ErrorMessage } from "@/css/style";
-import { InputWrapper } from "@/css/customStyle";
+import Repositories from "components/Repositories";
+import Container from "commonComponents/Container";
+import SelectorContainer from "components/SelectorContainer";
+import getRepositories from "apiPath/orgs/repos";
+import { useStore } from "context/store";
+import { Header, ErrorMessage } from "css/style";
+import { InputWrapper } from "css/customStyle";
 import debounce from "lodash/debounce";
 import { useRouter } from "next/router";
 

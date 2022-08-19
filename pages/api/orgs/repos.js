@@ -1,4 +1,4 @@
-import { normalizer } from "../../../utils/normalizer";
+import { normalizer } from "utils/normalizer";
 
 export default async function repos(req, res) {
   const { keyword, type, sort, direction, page, per_page } = req.query;

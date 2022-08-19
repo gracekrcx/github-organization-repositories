@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MOBILE } from "../../css/customStyle";
+import { MOBILE } from "css/customStyle";
 
 export const SelectMenuModalWrapper = styled.div`
   position: absolute;

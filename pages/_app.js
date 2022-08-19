@@ -1,6 +1,6 @@
-import StoreContextProvider from "../context/store";
+import StoreContextProvider from "context/store";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import theme from "@/constants/theme";
+import theme from "constants/theme";
 
 const GlobalStyle = createGlobalStyle`
   body {
