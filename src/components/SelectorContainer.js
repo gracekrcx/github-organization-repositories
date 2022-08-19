@@ -1,8 +1,9 @@
-import { useRef, memo, useState } from "react";
+import { useState, useCallback } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import down from "images/svg/down.svg";
 import SelectMenuModal from "./SelectMenuModal";
+import useClickOutside from "hooks/useClickOutside";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,16 @@ const Selector = styled.div`
   }
 `;
 
+const SelectorItem = ({ item, handleSelector }) => {
+  const param = item.toLowerCase();
+  return (
+    <Selector onClick={() => handleSelector(param)}>
+      <span className="text">{item}</span>
+      <Image src={down} alt="" width="10" height="10" />
+    </Selector>
+  );
+};
+
 const SelectorContainer = ({ search, filterUpdateSearch }) => {
   const [showModal, setShowModal] = useState(false);
   const [filterItem, setFilterItem] = useState("");
@@ -47,31 +58,32 @@ const SelectorContainer = ({ search, filterUpdateSearch }) => {
     filterUpdateSearch({ [filterItem]: val });
   };
 
+  const clickOutsideCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
+  let domNode = useClickOutside(clickOutsideCloseModal);
+
   return (
-    <>
-      <Container>
-        {showModal && (
-          <SelectMenuModal
-            search={search}
-            filterItem={filterItem}
-            closeModal={closeModal}
-            updateFilterValue={updateFilterValue}
+    <Container ref={domNode}>
+      {showModal && (
+        <SelectMenuModal
+          search={search}
+          filterItem={filterItem}
+          closeModal={closeModal}
+          updateFilterValue={updateFilterValue}
+        />
+      )}
+      {["Type", "Sort", "Direction"].map((item) => {
+        return (
+          <SelectorItem
+            key={item}
+            item={item}
+            handleSelector={handleSelector}
           />
-        )}
-        <Selector onClick={() => handleSelector("type")}>
-          <span className="text">Type</span>
-          <Image src={down} alt="" width="10" height="10" />
-        </Selector>
-        <Selector onClick={() => handleSelector("sort")}>
-          <span className="text">Sort</span>
-          <Image src={down} alt="" width="10" height="10" />
-        </Selector>
-        <Selector onClick={() => handleSelector("direction")}>
-          <span className="text">Direction</span>
-          <Image src={down} alt="" width="10" height="10" />
-        </Selector>
-      </Container>
-    </>
+        );
+      })}
+    </Container>
   );
 };
 export default SelectorContainer;
