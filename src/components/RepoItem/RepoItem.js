@@ -67,7 +67,6 @@ export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
 
   useEffect(() => {
     if (lastElement && isVisible) {
-      console.log("------//-------> infinite Fetch 觸發");
       infiniteFetch();
     }
   }, [isVisible, infiniteFetch, lastElement]);

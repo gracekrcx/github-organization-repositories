@@ -18,13 +18,11 @@ export default function orgsRepos({
       return resJson;
     })
     .catch((e) => {
-      console.error("client error:", e.status);
-      console.error("client error:", e.statusText);
       // 錯誤: 404
       // 錯誤: Not Found
 
-      // 403
-      // rate limit exceeded
+      // 錯誤: 403
+      // 錯誤: rate limit exceeded
 
       return { status: e.status, message: e.statusText };
     });

@@ -8,7 +8,6 @@ export default function useClickOutside(func) {
   const domNode = useRef();
   useEffect(() => {
     const handler = (event) => {
-      console.log(domNode.current.contains(event.target));
       if (!domNode.current.contains(event.target)) {
         func();
       }

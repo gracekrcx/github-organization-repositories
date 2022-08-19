@@ -1,15 +1,11 @@
-import { useRef, memo } from "react";
+import { memo } from "react";
 import { StoreContextConsumer } from "context/store";
 import Spinner from "commonComponents/Spinner";
 import { ReposContainer } from "css/style";
 import RepoItem from "./RepoItem";
 
 const Repositories = memo(({ infiniteFetch, loading }) => {
-  // const ref = useRef(0);
-  // console.log(ref.current++);
-
   const renderRepositories = (repositories) => {
-    // console.log("--> page", repositories);
     if (repositories?.length) {
       return (
         <>
