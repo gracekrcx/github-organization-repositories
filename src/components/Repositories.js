@@ -4,7 +4,7 @@ import Spinner from "commonComponents/Spinner";
 import { ReposContainer } from "css/style";
 import RepoItem from "./RepoItem";
 
-const Repositories = memo(({ infiniteFetch, loading }) => {
+const Repositories = memo(({ infiniteScrollFetch, loading }) => {
   const renderRepositories = (repositories) => {
     if (repositories?.length) {
       return (
@@ -14,7 +14,7 @@ const Repositories = memo(({ infiniteFetch, loading }) => {
               item={i}
               key={i.id}
               lastElement={index + 1 === repositories.length}
-              infiniteFetch={infiniteFetch}
+              infiniteScrollFetch={infiniteScrollFetch}
             />
           ))}
         </>

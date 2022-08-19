@@ -43,7 +43,11 @@ const UpdatedTime = ({ updatedAt }) => {
   return <span>{`Updated ${hour} hour ago`}</span>;
 };
 
-export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
+export default function RepoItem({
+  item,
+  lastElement = false,
+  infiniteScrollFetch,
+}) {
   const {
     name,
     description,
@@ -67,9 +71,9 @@ export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
 
   useEffect(() => {
     if (lastElement && isVisible) {
-      infiniteFetch();
+      infiniteScrollFetch();
     }
-  }, [isVisible, infiniteFetch, lastElement]);
+  }, [isVisible, infiniteScrollFetch, lastElement]);
 
   const mockUrl = `https://github.com/${owner?.login}/${name}`;
 
@@ -94,9 +98,6 @@ export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
         <Info img={forked} value={fork} />
         <Info img={issueSvg} value={issue} />
         <UpdatedTime updatedAt={updated_at} />
-        {/* <span className="msgWrap">
-          <Image src={pullRequest} alt="" width="16" height="16" />
-        </span> */}
       </div>
     </RepoItemContainer>
   );

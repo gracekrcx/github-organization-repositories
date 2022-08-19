@@ -25,7 +25,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
-  const infiniteFetch = useCallback(() => {
+  const infiniteScrollFetch = useCallback(() => {
     setLoading(true);
     setSearch((val) => ({ ...val, page: val.page + 1 }));
   }, []);
@@ -57,7 +57,7 @@ export default function Home() {
     async (data) => {
       const result = await getRepositories(data);
 
-      // 確認資料型態
+      // 確認資料型別
       if (Array.isArray(result)) {
         if (result.length > 0) {
           setRepositories((prev) => [...prev, ...result]);
@@ -147,7 +147,10 @@ export default function Home() {
             filterUpdateSearch={filterUpdateSearch}
           />
         </Header>
-        <Repositories infiniteFetch={infiniteFetch} loading={loading} />
+        <Repositories
+          infiniteScrollFetch={infiniteScrollFetch}
+          loading={loading}
+        />
         {errorMessage && search.keyword && (
           <ErrorMessage>{errorMessage}</ErrorMessage>
         )}
