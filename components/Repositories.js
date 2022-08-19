@@ -2,6 +2,7 @@ import { useRef, memo } from "react";
 import { StoreContextConsumer } from "../context/store";
 import Spinner from "../commonComponents/Spinner";
 import RepoItem from "./RepoItem";
+import { ReposContainer } from "../css/style";
 
 const Repositories = memo(({ infiniteFetch, loading }) => {
   // const ref = useRef(0);
@@ -31,10 +32,10 @@ const Repositories = memo(({ infiniteFetch, loading }) => {
     <StoreContextConsumer>
       {({ repositories }) => {
         return (
-          <>
+          <ReposContainer>
             <div>{renderRepositories(repositories)}</div>
             {loading && <Spinner />}
-          </>
+          </ReposContainer>
         );
       }}
     </StoreContextConsumer>

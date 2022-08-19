@@ -6,7 +6,6 @@ import star from "../../sources/svg/star.svg";
 import forked from "../../sources/svg/forked.svg";
 import law from "../../sources/svg/law.svg";
 import issueSvg from "../../sources/svg/issue-svg.svg";
-// import pullRequest from "../../sources/svg/git-pull-request.svg";
 import getMonth from "../../utils/getMonth";
 import useOnScreen from "../../hooks/useOnScreen";
 import { msToHour } from "../../utils/getTime";
@@ -55,6 +54,7 @@ export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
     forks_count,
     open_issues_count,
     updated_at,
+    owner,
   } = item;
 
   const stars = stargazers_count.toLocaleString();
@@ -72,10 +72,16 @@ export default function RepoItem({ item, lastElement = false, infiniteFetch }) {
     }
   }, [isVisible, infiniteFetch, lastElement]);
 
+  const mockUrl = `https://github.com/${owner?.login}/${name}`;
+
   return (
     <RepoItemContainer ref={lastElement ? ref : null}>
       <div className="titleWrap">
-        <div className="title">{name}</div>
+        <div className="title">
+          <a target="_blank" rel="noreferrer" href={mockUrl}>
+            {name}
+          </a>
+        </div>
         <div className="visibility">{visibility}</div>
       </div>
       <div className="descr">{description}</div>

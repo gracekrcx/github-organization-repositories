@@ -21,8 +21,11 @@ export const RepoItemContainer = styled.div`
     font-size: 18px;
     overflow-wrap: break-word;
     font-weight: 500;
-    color: ${(props) => props.theme.colors.primary};
     margin-right: 10px;
+  }
+
+  .title > a {
+    color: ${(props) => props.theme.colors.primary};
   }
 
   .visibility {

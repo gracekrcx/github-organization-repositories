@@ -10,11 +10,13 @@ const singleRepoNormalizer = (repo) => {
     forks_count,
     open_issues_count,
     updated_at,
+    owner,
   } = repo || {};
 
   return {
     id,
     name,
+    owner,
     description,
     language,
     stargazers_count,

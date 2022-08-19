@@ -1,4 +1,4 @@
-import { normalizer } from "../../utils/normalizer";
+import { normalizer } from "../../../utils/normalizer";
 
 export default async function repos(req, res) {
   const { keyword, type, sort, direction, page, per_page } = req.query;
@@ -21,6 +21,9 @@ export default async function repos(req, res) {
       return res.json();
     })
     .then(normalizer)
+    // .then((res) => {
+    //   return res;
+    // })
     .catch((e) => {
       console.error("api server 錯誤:", e.status);
       console.error("api server 錯誤:", e.statusText);

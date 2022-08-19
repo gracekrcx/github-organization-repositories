@@ -5,6 +5,8 @@ import theme from "../constants/theme";
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: ${(props) => props.theme.fontFamily};
+    margin: 0;
+    padding: 0;
   }
 `;
 

@@ -8,6 +8,7 @@ import Container from "../commonComponents/Container";
 import { Header, ErrorMessage } from "../css/style";
 import { InputWrapper } from "../css/customStyle";
 import debounce from "lodash/debounce";
+import { useRouter } from "next/router";
 
 const debounceTime = 1500;
 
@@ -22,19 +23,33 @@ export default function Home() {
   const { setRepositories } = useStore();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const router = useRouter();
 
   const infiniteFetch = useCallback(() => {
     setLoading(true);
     setSearch((val) => ({ ...val, page: val.page + 1 }));
   }, []);
 
+  const pushRouter = useCallback(
+    (val) => {
+      const filter = { ...search, ...val };
+      const { type, sort, direction, keyword } = filter;
+
+      router.push({
+        query: { type, sort, direction, q: keyword },
+      });
+    },
+    [search, router]
+  );
+
   // filter 改變
   const filterUpdateSearch = useCallback(
     (val) => {
       setRepositories([]);
       setSearch((pre) => ({ ...pre, ...val, page: 1 }));
+      pushRouter(val);
     },
-    [setRepositories]
+    [setRepositories, pushRouter]
   );
 
   // (4) fetch api
@@ -84,11 +99,29 @@ export default function Home() {
     }
   }, [debouncedSearch, search]);
 
+  const debouncedPushRouter = useCallback(
+    (val) => {
+      router.push({
+        query: { q: val },
+      });
+    },
+    [router]
+  );
+
+  const handlePushRouter = useMemo(
+    () =>
+      debounce((search) => {
+        debouncedPushRouter(search);
+      }, debounceTime),
+    [debouncedPushRouter]
+  );
+
   // (1) input change
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch((val) => ({ ...val, keyword: value, page: 1 }));
     setRepositories([]);
+    handlePushRouter(value);
   };
 
   return (
