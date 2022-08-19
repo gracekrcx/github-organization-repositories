@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Head from "next/head";
-import Repositories from "../components/Repositories";
-import SelectorContainer from "../components/SelectorContainer";
-import getRepositories from "../apiPath/orgs/repos";
-import { useStore } from "../context/store";
-import Container from "../commonComponents/Container";
-import { Header, ErrorMessage } from "../css/style";
-import { InputWrapper } from "../css/customStyle";
+import Repositories from "@/components/Repositories";
+import Container from "@/commonComponents/Container";
+import SelectorContainer from "@/components/SelectorContainer";
+import getRepositories from "@/apiPath/orgs/repos";
+import { useStore } from "@/context/store";
+import { Header, ErrorMessage } from "@/css/style";
+import { InputWrapper } from "@/css/customStyle";
 import debounce from "lodash/debounce";
 import { useRouter } from "next/router";
 
@@ -119,9 +119,11 @@ export default function Home() {
   // (1) input change
   const handleSearch = (e) => {
     const value = e.target.value;
-    setSearch((val) => ({ ...val, keyword: value, page: 1 }));
+    const valueTrim = value.trim();
+
+    setSearch((val) => ({ ...val, keyword: valueTrim, page: 1 }));
     setRepositories([]);
-    handlePushRouter(value);
+    handlePushRouter(valueTrim);
   };
 
   return (
@@ -129,7 +131,6 @@ export default function Home() {
       <Head>
         <title>github-organization-repositories</title>
         <meta name="description" content="github-organization-repositories" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Container>
         <Header>
@@ -145,7 +146,9 @@ export default function Home() {
           />
         </Header>
         <Repositories infiniteFetch={infiniteFetch} loading={loading} />
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage && search.keyword && (
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        )}
       </Container>
     </div>
   );

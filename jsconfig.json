@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/svg/*": ["sources/svg/*"],
+      "@/constants/*": ["sources/constants/*"],
+      "@/utils/*": ["utils/*"],
+      "@/components/*": ["components/*"],
+      "@/commonComponents/*": ["commonComponents/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/apiPath/*": ["apiPath/*"],
+      "@/context/*": ["context/*"],
+      "@/css/*": ["css/*"]
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import cross from "../../sources/svg/cross.svg";
-import check from "../../sources/svg/check.svg";
+import cross from "@/svg/cross.svg";
+import check from "@/svg/check.svg";
 import Image from "next/image";
 import {
   RadioButton,

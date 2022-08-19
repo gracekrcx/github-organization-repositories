@@ -1,7 +1,7 @@
 import { useRef, memo, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import down from "../sources/svg/down.svg";
+import down from "@/svg/down.svg";
 import SelectMenuModal from "./SelectMenuModal";
 
 const Container = styled.div`

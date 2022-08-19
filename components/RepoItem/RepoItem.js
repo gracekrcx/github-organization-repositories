@@ -1,14 +1,14 @@
 import { useCallback, useRef, useEffect } from "react";
 import { RepoItemContainer } from "./styled";
-import Circle from "../../commonComponents/Circle";
 import Image from "next/image";
-import star from "../../sources/svg/star.svg";
-import forked from "../../sources/svg/forked.svg";
-import law from "../../sources/svg/law.svg";
-import issueSvg from "../../sources/svg/issue-svg.svg";
-import getMonth from "../../utils/getMonth";
-import useOnScreen from "../../hooks/useOnScreen";
-import { msToHour } from "../../utils/getTime";
+import Circle from "@/commonComponents/Circle";
+import star from "@/svg/star.svg";
+import forked from "@/svg/forked.svg";
+import law from "@/svg/law.svg";
+import issueSvg from "@/svg/issue-svg.svg";
+import getMonth from "@/utils/getMonth";
+import { msToHour } from "@/utils/getTime";
+import useOnScreen from "@/hooks/useOnScreen";
 
 // img : icon
 // value : 數據

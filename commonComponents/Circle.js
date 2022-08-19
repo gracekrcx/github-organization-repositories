@@ -16,6 +16,8 @@ export default function Circle({ text }) {
         return "#f1e05a";
       case "C++":
         return "#f34b7d";
+      case "Python":
+        return "#3572A5";
       case "C#":
         return "#178600";
       default:
