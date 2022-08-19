@@ -131,6 +131,10 @@ export default function Home() {
       <Head>
         <title>github-organization-repositories</title>
         <meta name="description" content="github-organization-repositories" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+        />
       </Head>
       <Container>
         <Header>
